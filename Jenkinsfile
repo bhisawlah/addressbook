@@ -19,7 +19,8 @@ tools {
          }
        }
       stage('3. SonarQube analysis') {
-      environment {SONAR_TOKEN = credentials('sonarqube')}
+      environment {SONAR_TOKEN = credentials('sonarqube')
+      }
       steps {
        script {
          def scannerHome = tool 'SonarQube-Scanner 6.0.0';
