@@ -39,16 +39,23 @@ tools {    maven "maven3.9.8"
        }
       }
       stage('4. Docker image build') {
-         steps{
-          sh "aws ecr get-login-password \
-          --region us-east-1 |docker login \
-          --username AWS \
-          --password-stdin ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com"
-          sh "sudo docker build -t addressbook ."
-          sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
-          sh "docker push ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
-         }
-       }
+      steps {
+        script {
+            // Login to AWS ECR
+            def ecrLoginCmd = "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com"
+            sh ecrLoginCmd
+            
+            // Build Docker image
+            sh "sudo docker build -t addressbook ."
+            
+            // Tag Docker image
+            sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
+            
+            // Push Docker image to ECR
+            sh "docker push ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
+        }
+    }
+}
       stage('5. Application deployment in eks') {
         steps{
           kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: '') {
