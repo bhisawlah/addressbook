@@ -37,7 +37,10 @@ tools {    maven "maven3.9.8"
       }
       stage('4. Docker image build') {
          steps{
-          sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com"
+          sh "aws ecr get-login-password \
+          --region us-east-1 |docker login \
+          --username AWS \
+          --password-stdin ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com"
           sh "sudo docker build -t addressbook ."
           sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
           sh "docker push ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
