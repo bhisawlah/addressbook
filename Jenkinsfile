@@ -42,17 +42,17 @@ tools {    maven "maven3.9.8"
       steps {
         script {
             // Login to AWS ECR
-            def ecrLoginCmd = "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com"
+            def ecrLoginCmd = "aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-west-2.amazonaws.com"
             sh ecrLoginCmd
             
             // Build Docker image
             sh "sudo docker build -t addressbook ."
             
             // Tag Docker image
-            sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
+            sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-west-2.amazonaws.com/addressbook:${params.ecr_tag}"
             
             // Push Docker image to ECR
-            sh "docker push ${params.aws_account}.dkr.ecr.us-east-1.amazonaws.com/addressbook:${params.ecr_tag}"
+            sh "docker push ${params.aws_account}.dkr.ecr.us-west-2.amazonaws.com/addressbook:${params.ecr_tag}"
         }
     }
 }
