@@ -1,5 +1,8 @@
 pipeline {
  agent { node { label "maven-sonar" } }
+ environment {
+        PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$PATH"
+    }
  parameters   {
    string(name: 'aws_account', defaultValue: '322266404742', description: 'aws account hosting image registry')
    string(name: 'ecr_tag', defaultValue: '1.0.0' , description: 'Choose the ecr tag version for the build')
