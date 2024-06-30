@@ -75,12 +75,12 @@ tools {    maven "maven3.9.8"
        }
       stage ('7. Email Notification') {
          steps{
-         mail bcc: 'fusisoft@gmail.com', body: '''Build is Over. Check the application using the URL below. 
+         mail bcc: 'ajisegbedeabisolat@gmail.com', body: '''Build is Over. Check the application using the URL below. 
          https//abook.shiawslab.com/addressbook-1.0
          Let me know if the changes look okay.
          Thanks,
          Dominion System Technologies,
-         +1 (313) 413-1477''', cc: 'fusisoft@gmail.com', from: '', replyTo: '', subject: 'Application was Successfully Deployed!!', to: 'fusisoft@gmail.com'
+         +1 (313) 413-1477''', cc: 'ajisegbedeabisolat@gmail.com', from: '', replyTo: '', subject: 'Application was Successfully Deployed!!', to: 'ajisegbedeabisolat@gmail.com'
       }
     }
  }
