@@ -18,7 +18,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: abook.shiawslab.com
+    - host: abook.tyrockfragrances.com
       http:
         paths:
           - path: /addressbook-1.0
