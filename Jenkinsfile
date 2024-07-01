@@ -30,7 +30,7 @@ tools {    maven "maven3.9.8"
          sh "${tool("SonarQube-Scanner 6.0.0")}/bin/sonar-scanner -X \
            -Dsonar.projectKey=addressbook-application2 \
            -Dsonar.projectName='addressbook-application2' \
-           -Dsonar.host.url=http://3.85.41.149:9000 \
+           -Dsonar.host.url=http://52.3.220.181:9000 \
            -Dsonar.token=$SONAR_TOKEN \
            -Dsonar.sources=src/main/java/ \
            -Dsonar.java.binaries=target/classes"
