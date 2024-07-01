@@ -63,16 +63,16 @@ tools {    maven "maven3.9.8"
           }
          }
        }
-      stage('6. Monitoring solution deployment in eks') {
-        steps{
-          kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: '') {
-          sh "kubectl apply -f monitoring"
-          sh "chmod +x -R script"
-          sh(""" script/createIRSA-AMPIngest.sh""")
-          sh(""" script/createIRSA-AMPQuery.sh""")
-          }
-         }
-       }
+      // stage('6. Monitoring solution deployment in eks') {
+      //   steps{
+      //     kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: '') {
+      //     sh "kubectl apply -f monitoring"
+      //     sh "chmod +x -R script"
+      //     sh(""" script/createIRSA-AMPIngest.sh""")
+      //     sh(""" script/createIRSA-AMPQuery.sh""")
+      //     }
+      //    }
+      //  }
       stage ('7. Email Notification') {
          steps{
          mail bcc: 'ajisegbedeabisolat@gmail.com', body: '''Build is Over. Check the application using the URL below. 
