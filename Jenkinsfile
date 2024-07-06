@@ -51,6 +51,7 @@ tools {    maven "maven3.9.8"
             // Tag Docker image
             sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-east-2.amazonaws.com/addressbook:${params.ecr_tag}"
             
+            
             // Push Docker image to ECR
             sh "docker push ${params.aws_account}.dkr.ecr.us-east-2.amazonaws.com/addressbook:${params.ecr_tag}"
         }
