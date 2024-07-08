@@ -28,8 +28,8 @@ tools {    maven "maven3.9.8"
          def scannerHome = tool 'SonarQube-Scanner 6.0.0';
          withSonarQubeEnv("sonarqube-integration") {
          sh "${tool("SonarQube-Scanner 6.0.0")}/bin/sonar-scanner -X \
-           -Dsonar.projectKey=addressbook-application2 \
-           -Dsonar.projectName='addressbook-application2' \
+           -Dsonar.projectKey=addressbook-application3 \
+           -Dsonar.projectName='addressbook-application3' \
            -Dsonar.host.url=http://54.172.57.71:9000 \
            -Dsonar.token=$SONAR_TOKEN \
            -Dsonar.sources=src/main/java/ \
