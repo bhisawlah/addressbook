@@ -21,7 +21,7 @@ tools {    maven "maven3.9.8"
          }
        }
       stage('3. SonarQube analysis') {
-      environment {SONAR_TOKEN = credentials('sonarqube')
+      environment {SONAR_TOKEN = credentials('sonarqube-cred')
       }
       steps {
        script {
