@@ -59,7 +59,7 @@ tools {    maven "maven3.9.8"
 }
       stage('5. Application deployment in eks') {
         steps{
-          kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: 'https://7A3978DBFC082919F19E9CFAB2201D4B.gr7.us-east-2.eks.amazonaws.com') {
+          kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: 'https://870A84ED50DD1BA68F75B592833E0827.gr7.us-east-2.eks.amazonaws.com') {
           sh "kubectl apply -f manifest"
           }
          }
