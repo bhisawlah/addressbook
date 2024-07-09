@@ -2,6 +2,8 @@ pipeline {
  agent { node { label "maven-sonar" } }
  environment {
         PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$PATH"
+        KUBECONFIG_CREDENTIALS_ID = 'k8s-kubeconfig'
+        K8S_SERVER_URL = 'https://870A84ED50DD1BA68F75B592833E0827.gr7.us-east-2.eks.amazonaws.com'
     }
  parameters   {
    string(name: 'aws_account', defaultValue: '339712774185', description: 'aws account hosting image registry')
@@ -57,13 +59,27 @@ tools {    maven "maven3.9.8"
         }
     }
 }
-      stage('5. Application deployment in eks') {
-        steps{
-          kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: 'https://870A84ED50DD1BA68F75B592833E0827.gr7.us-east-2.eks.amazonaws.com') {
-          sh "kubectl apply -f manifest"
-          }
-         }
-       }
+
+        stage('5. Application deployment in eks') {
+            steps {
+                script {
+                    try {
+                        echo "Setting up kubeconfig with credentials ID: ${KUBECONFIG_CREDENTIALS_ID}"
+                        echo "Kubernetes API server URL: ${K8S_SERVER_URL}"
+                        
+                        kubeconfig(caCertificate: '', credentialsId: KUBECONFIG_CREDENTIALS_ID, serverUrl: K8S_SERVER_URL) {
+                            echo "Applying Kubernetes manifests from 'manifest' directory"
+                            sh 'kubectl apply -f manifest'
+                        }
+                    } catch (Exception e) {
+                        echo "Error during Kubernetes setup or manifest application: ${e.message}"
+                        error("Failed to deploy application in EKS")
+                    }
+                }
+            }
+        }
+    }
+
       // stage('6. Monitoring solution deployment in eks') {
       //   steps{
       //     kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: '') {
