@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label "maven-sonar" } }
+    agent { node { label "node-slave" } }
     
     environment {
         PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$PATH"
