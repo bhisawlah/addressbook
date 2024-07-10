@@ -70,23 +70,11 @@ pipeline {
         
         stage('Application deployment in eks') {
             steps {
-                script {
-                    try {
-                        echo "Setting up kubeconfig with credentials ID: ${KUBECONFIG_CREDENTIALS_ID}"
-                        echo "Kubernetes API server URL: ${K8S_SERVER_URL}"
-                        
-                        kubeconfig(caCertificate: '', credentialsId: KUBECONFIG_CREDENTIALS_ID, serverUrl: K8S_SERVER_URL) {
-                            echo "Applying Kubernetes manifests from 'manifest' directory"
-                            sh 'kubectl apply -f manifest'
-                        }
-                    } catch (Exception e) {
-                        echo "Error during Kubernetes setup or manifest application: ${e.message}"
-                        error("Failed to deploy application in EKS")
-                    }
-                }
-            }
-        }
-        
+                kubeconfig(caCertificate: '',credentialsId: 'k8s-kubeconfig', serverUrl: '') {
+          sh "kubectl apply -f manifest"
+          }
+         }
+       }
         /*
         stage('Monitoring solution deployment in eks') {
             steps {
