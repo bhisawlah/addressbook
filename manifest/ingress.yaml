@@ -4,13 +4,13 @@ metadata:
   name: addressbook-ingress
   namespace: directory
   annotations:
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 80}]'
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/healthcheck-port: "443"
+    alb.ingress.kubernetes.io/healthcheck-port: "80"
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/healthcheck-path: /addressbook-1.0
     alb.ingress.kubernetes.io/success-codes: "200,302"
-    alb.ingress.kubernetes.io/load-balancer-name: addressbook-server-ip
+    alb.ingress.kubernetes.io/load-balancer-name: my-alb
     alb.ingress.kubernetes.io/target-group-attributes: deregistration_delay.timeout_seconds=30
 spec:
   ingressClassName: alb
