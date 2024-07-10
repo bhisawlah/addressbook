@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     // Login to AWS ECR
-                    def ecrLoginCmd = "aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com"
+                    def ecrLoginCmd = "aws ecr get-login-password --region us-west-1 | sudo docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com"
                     sh ecrLoginCmd
                     
                     
@@ -60,10 +60,10 @@ pipeline {
                     sh "sudo docker build -t addressbook ."
                     
                     // Tag Docker image
-                    sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com/addressbook:${params.ecr_tag}"
+                    sh "sudo docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com/addressbook:${params.ecr_tag}"
                     
                     // Push Docker image to ECR
-                    sh "docker push ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com/addressbook:${params.ecr_tag}"
+                    sh "sudo docker push ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com/addressbook:${params.ecr_tag}"
                 }
             }
         }
