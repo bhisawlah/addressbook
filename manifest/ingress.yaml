@@ -4,7 +4,7 @@ metadata:
   name: addressbook-ingress
   namespace: directory
   annotations:
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 80}]'
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-port: "80"
     alb.ingress.kubernetes.io/ssl-redirect: "443"
