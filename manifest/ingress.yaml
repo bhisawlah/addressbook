@@ -12,7 +12,11 @@ metadata:
     alb.ingress.kubernetes.io/healthcheck-path: /addressbook-1.0
     alb.ingress.kubernetes.io/success-codes: "200,302"
     alb.ingress.kubernetes.io/load-balancer-name: my-alb
-    alb.ingress.kubernetes.io/target-group-attributes: deregistration_delay.timeout_seconds=30
+    alb.ingress.kubernetes.io/target-group-attributes: deregistration_delay.timeout_seconds=3600
+    alb.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    alb.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    alb.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    alb.ingress.kubernetes.io/server-snippet: "keepalive_timeout 3600s;client_body_timeout 3600s;client_header_timeout 3600s;"
 spec:
   ingressClassName: alb
   rules:
