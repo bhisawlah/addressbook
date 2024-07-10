@@ -37,9 +37,9 @@ pipeline {
                 script {
                     withSonarQubeEnv("sonarqube-integration") {
                         sh "${tool('SonarQube-Scanner 6.0.0')}/bin/sonar-scanner -X \
-                            -Dsonar.projectKey=addressbook-application3 \
-                            -Dsonar.projectName='addressbook-application3' \
-                            -Dsonar.host.url=http://54.172.57.71:9000 \
+                            -Dsonar.projectKey=elitebook-app \
+                            -Dsonar.projectName='elitebook-app' \
+                            -Dsonar.host.url=http://100.24.83.181:9000 \
                             -Dsonar.token=$SONAR_TOKEN \
                             -Dsonar.sources=src/main/java/ \
                             -Dsonar.java.binaries=target/classes"
@@ -52,17 +52,18 @@ pipeline {
             steps {
                 script {
                     // Login to AWS ECR
-                    def ecrLoginCmd = "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-east-2.amazonaws.com"
+                    def ecrLoginCmd = "aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com"
                     sh ecrLoginCmd
+                    
                     
                     // Build Docker image
                     sh "sudo docker build -t addressbook ."
                     
                     // Tag Docker image
-                    sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-east-2.amazonaws.com/addressbook:${params.ecr_tag}"
+                    sh "docker tag addressbook:latest ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com/addressbook:${params.ecr_tag}"
                     
                     // Push Docker image to ECR
-                    sh "docker push ${params.aws_account}.dkr.ecr.us-east-2.amazonaws.com/addressbook:${params.ecr_tag}"
+                    sh "docker push ${params.aws_account}.dkr.ecr.us-west-1.amazonaws.com/addressbook:${params.ecr_tag}"
                 }
             }
         }
