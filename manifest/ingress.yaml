@@ -20,7 +20,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: www.project629.com
+    - host: contact.project629.com
       http:
         paths:
           - path: /addressbook-1.0
