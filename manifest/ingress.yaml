@@ -5,7 +5,7 @@ metadata:
   namespace: directory
   annotations:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-1:339712774185:certificate/499eb81a-b74e-4d09-9af0-dbdda60c90fd
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-1:339712774185:certificate/12a0c446-7ed6-468b-a542-a90b4708d35e
     alb.ingress.kubernetes.io/healthcheck-port: "443"
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/healthcheck-path: /addressbook-1.0
