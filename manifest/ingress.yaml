@@ -10,7 +10,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-port: "443"
     alb.ingress.kubernetes.io/ssl-redirect: "443"
-    alb.ingress.kubernetes.io/healthcheck-path: /bisola-addressbook-1.0
+    alb.ingress.kubernetes.io/healthcheck-path: /elite-addressbook-1.0
     alb.ingress.kubernetes.io/success-codes: "200,302"
     alb.ingress.kubernetes.io/load-balancer-name: addressbook-server-ip
     alb.ingress.kubernetes.io/target-group-attributes: deregistration_delay.timeout_seconds=30
@@ -20,7 +20,7 @@ spec:
     - host: contact.project629.com
       http:
         paths:
-          - path:  /bisola-addressbook-1.0
+          - path:  /elite-addressbook-1.0
             pathType: Prefix
             backend:
               service:
