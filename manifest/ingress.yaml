@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: addressbook-ingress
+  namespace: directory
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-1:339712774185:certificate/12a0c446-7ed6-468b-a542-a90b4708d35e
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-port: "443"
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/healthcheck-path: /bisola-addressbook-1.0
+    alb.ingress.kubernetes.io/success-codes: "200,302"
+    alb.ingress.kubernetes.io/load-balancer-name: addressbook-server-ip
+    alb.ingress.kubernetes.io/target-group-attributes: deregistration_delay.timeout_seconds=30
+spec:
+  ingressClassName: alb
+  rules:
+    - host: contact.project629.com
+      http:
+        paths:
+          - path:  /bisola-addressbook-1.0
+            pathType: Prefix
+            backend:
+              service:
+                name: addressbook-service
+                port:
+                  number: 8080
+          - path: /mongo
+            pathType: Prefix
+            backend:
+              service:
+                name: mongo-service
+                port:
+                  number: 27017
